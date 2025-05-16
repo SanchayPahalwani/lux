@@ -8,11 +8,11 @@ Mix.install(
   ],
   config: [
     lux: [
-      open_ai_models: [
+      mira_ai_models: [
         default: "gpt-4o-mini"
       ],
       api_keys: [
-        openai: System.fetch_env!("LB_OPENAI_API_KEY")
+        mira: System.fetch_env!("MIRA_API_KEY")
       ]
     ]
   ],
@@ -247,8 +247,9 @@ Control how your agent interacts with language models:
 ```elixir
 llm_config = %{
   # API configuration
-  api_key: "<OPENAI_API_KEY>",
-  model: Application.get_env(:lux, :open_ai_models)[:default],
+  provider: "mira"
+  api_key: "<MIRA_API_KEY>",
+  model: Application.get_env(:lux, :mira_ai_models)[:default],
   
   # Response characteristics
   temperature: 0.7,        # 0.0-1.0: lower = more focused, higher = more creative
@@ -286,7 +287,7 @@ defmodule MyApp.Agents.StructuredAssistant do
     goal: "Provide clear, structured responses to user queries",
     response_schema: MyApp.Schemas.ResponseSchema,
     llm_config: %{
-      api_key: Lux.Config.openai_api_key(),
+      api_key: "<MIRA_API_KEY>",
       messages: [
         %{
           role: "system",
